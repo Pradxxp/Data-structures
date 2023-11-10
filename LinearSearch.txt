@@ -1,0 +1,26 @@
+#include<stdio.h>
+
+int main() {
+  int a[20], n, key, i, index;
+  printf("Enter the size\n");
+  scanf("%d", &n);
+  printf("Enter elements\n");
+  for (i = 0; i < n; i++){
+    scanf("%d", &a[i]);
+  }
+  printf("Enter the element to search\n");
+  scanf("%d", &key);
+  for (i= 0; i<n; i++){
+    if (a[i] == key){
+        index=i;
+        break; 
+    }
+  }
+  if (index < n) 
+    printf("Key element found at index %d", index);
+  else
+    printf("Key element not found");
+  
+
+  return 0;
+}
