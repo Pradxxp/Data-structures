@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define a structure for a binary tree node
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+// Function to create a new node with the given value
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->left = NULL;
+    newNode->right = NULL;
+    return newNode;
+}
+
+// Function to insert a value into the binary search tree
+struct Node* insert(struct Node* root, int value) {
+    if (root == NULL) {
+        return createNode(value);
+    }
+    if (value < root->data) {
+        root->left = insert(root->left, value);
+    } else if (value > root->data) {
+        root->right = insert(root->right, value);
+    }
+    return root;
+}
+
+// In-order traversal (LNR)
+void inOrder(struct Node* root) {
+    if (root != NULL) {
+        inOrder(root->left);
+        printf("%d ", root->data);
+        inOrder(root->right);
+    }
+}
+
+// Pre-order traversal (NLR)
+void preOrder(struct Node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preOrder(root->left);
+        preOrder(root->right);
+    }
+}
+
+// Post-order traversal (LRN)
+void postOrder(struct Node* root) {
+    if (root != NULL) {
+        postOrder(root->left);
+        postOrder(root->right);
+        printf("%d ", root->data);
+    }
+}
+
+int main() {
+    int choice , n , data;
+    struct Node* root = NULL;
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Insert a node\n");
+        printf("2. Inorder traversal\n");
+        printf("3. Preorder traversal\n"); 
+        printf("4. Postorder traversal\n"); 
+        printf("5. Exit\n"); 
+        printf("Enter your choice: "); 
+        scanf("%d", &choice);
+        switch (choice) { 
+            case 1:
+            printf("Enter the number of nodes: ");
+            scanf("%d", &n);
+
+            for (int i = 0; i < n; i++){
+                printf("Enter the value root  of node %d: ", i + 1);
+                scanf("%d", &data); 
+                root = insert(root,data);
+            }
+
+            break;
+            case 2:
+            printf("Inorder traversal of the binary search tree is: "); 
+            inOrder(root); 
+            break;
+            case 3:
+            printf("Preorder traversal of the binary search tree is: "); 
+            preOrder(root); 
+            break;
+            case 4:
+            printf("Postorder traversal of the binary search tree is: "); 
+            postOrder(root); 
+            break;
+            case 5:
+            exit(0);
+            default: printf("Invalid choice. \n");
+        }
+    }
+    return 0;
+}
